@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       .myform{
+         position: absolute;
+         top: 20%;
+         left: 40%;
+       }
+       .myform p{
+         font-size: 14px;
+       }
+       .myform #submit{
+         margin-top: 20px;
+         position: absolute;
+         left: 30%;
+       }
+       div{
+        font-size: 12px;
+       }
+    </style>
+    
+</head>
+<body>
+    <!--十六进制正则表达式：/^#[0-9A-Za-z]{3}([0-9A-Za-z]{3})?$/-->
+    <!--URL正则表达式：/^htppt://[\w-]+\.+[\w-]+\.+(/[\w-./?%&=]*)?$/-->
+    <!--十六进制正则表达式： [\u4e00-\u9fa5]-->
+    <form action="" method="post" class="myform" onsubmit="return formValiad.checkForm()">
+      <p style="text-align: center; font-size: 18px;">创建用户</p>
+       <p>用户名</p>
+       <input type="text"  id="user" placeholder="请输入用户名" onblur="formValiad.checkUser()">
+       <div id="tishi1"></div>
+       <p>密码</p>
+       <input type="password" id="password1" placeholder="请输入密码" onblur="formValiad.checkCode1()">
+       <div id="tishi2"></div>
+       <p>确认密码</p>
+       <input type="password" id="password2" placeholder="请输入密码" onblur="formValiad.checkCode2()">
+       <div id="tishi3"></div>
+       <p>手机号码</p>
+       <input type="text" id="number" placeholder="请输入手机号码" onblur="formValiad.checkPhone()"><br>
+       <div id="tishi4"></div>
+       <input type="submit" id="submit" value="提交">
+    </form>
+    <script type="text/javascript">
+      var user=document.getElementById("user");
+      var code1=document.getElementById("password1");
+      var code2=document.getElementById("password2");
+      var mobile=document.getElementById("number");
+
+      var userinfo=document.getElementById("tishi1");
+      var code1info=document.getElementById("tishi2");
+      var code2info=document.getElementById("tishi3");
+      var mobileinfo=document.getElementById("tishi4");
+      
+      var formValiad={
+        checkUser:function(){
+          var reguser=/^\w{4,16}$/;
+           if(user.value.length==0){
+            userinfo.innerHTML="用户名不能为空";
+            userinfo.style.color="red";
+              return false;
+            }
+            if(!reguser.test(user.value)){
+              userinfo.innerHTML="用户名不合法";
+              userinfo.style.color="red";
+              return false;
+            }
+            else{
+              userinfo.innerHTML="用户名合法";
+              userinfo.style.color="green";
+              return ture;
+            }  
+        },
+        checkCode1:function(){
+          var regcode1=/^1[0-5]{2}[6-9]{3}[a-dA-D]{2}$/;
+          if(code1.value.length==0){
+            code1info.innerHTML="密码不能为空";
+            code1info.style.color="red";
+              return false;
+            }
+            if(!regcode1.test(code1.value)){
+              code1info.innerHTML="密码不合法";
+              code1info.style.color="red";
+              return false;
+            }
+            else{
+              code1info.innerHTML="密码合法";
+              code1info.style.color="green";
+              return ture;
+            }  
+        },
+        checkCode2:function(){
+          if(code2.value.length==0){
+            code2info.innerHTML="密码不能为空";
+            code2info.style.color="red";
+              return false;
+            }
+            if((code2.value)!=(code1.value)){
+              code2info.innerHTML="密码不合法";
+              code2info.style.color="red";
+              return false;
+            }
+            else{
+              code2info.innerHTML="密码合法";
+              code2info.style.color="green";
+              return ture;
+            }  
+        },
+        checkPhone:function(){
+          var regmobile=/^1[3-9][0-9]{9}$/;
+          if(mobile.value.length==0){
+            mobile1info.innerHTML="手机号码不能为空";
+            mobile1info.style.color="red";
+              return false;
+            }
+            if(!regmobile.test(mobile.value)){
+              mobileinfo.innerHTML="手机号码不合法";
+              mobileinfo.style.color="red";
+              return false;
+            }
+            else{
+              mobileinfo.innerHTML="手机号码合法";
+              mobileinfo.style.color="green";
+              return ture;
+            }  
+        },
+        checkForm:function(){
+          var userRes=this.checkUser();
+          var code1Res=this.checkCode1();
+          var code2Res=this.checkCode2();
+          var mobileRes=this.checkPhone();
+          return userRes && code1Res && code2Res && mobileRes;
+        }
+      }   
+    </script>
+</body>
+</html>
